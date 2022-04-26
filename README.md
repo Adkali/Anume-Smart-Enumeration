@@ -1,6 +1,7 @@
 
 ![Anume](https://user-images.githubusercontent.com/90532971/163718022-4ba535d8-2219-404a-8045-733607d75ea4.png)
 
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 # Readme
 Enumeration tool which can help you while doing CTF ( THM, HTB ).
 Have you ever tried to local privilege escalation your way to the root, but nothing came up, Just a waste of time and bunch of searching? While Learning Bash, Python, Cyber Security, im also taking some 'Capture The Flag' challenges, which at the end of them, i have to make a privilege escalation, and gaining access no matter what, but you already know, right? Now, It is very frustrating to search for any ods/clues/missconfiguration/ while trying to performe privilege escalation, and there a bunch of  challenges with differents Techniques, as you already know ( refers to linux), so i decide to make a bash script, with some options to help me/you to see if anything can help you make a local privilege escalation while you are in, and search in the system for something that might help you to reach your goal (Who doesn't like flags?)
