@@ -1,0 +1,215 @@
+#!/bin/bash
+
+#--------------------------------------------------------------------------#
+
+# Anume Tool Made By Adkali [ v1.0 ]
+# You can modify this tool as you wish
+# make it easy for yourself while making enumeration ( THM, HTB, etc.)
+# Have Fun While You Can
+
+#--------------------------------------------------------------------------#
+
+
+
+# --- > Just Define The Script Colors To Make It Easy For Me ... //
+
+Red="\e[31m"
+Yellow="\e[33m"
+Blue="\e[34m"
+Magenta="\e[95m"
+EndColor="\e[0m"
+
+
+# --- > Intro Before The Code Starts ... //
+
+echo -e # --- > Just A Space From The Top Line ... //
+echo -e "${Red}# This Tool brings you the option to choose from a differents type of enumerations which can help you discover\nthings about the sys you want so with that you might do a priviliege escalation/find interesting things about it.${EndColor}"
+ sleep 1
+echo -e "# Run this tool on the victim target ( or on your own machine for targeting misconfiguration )"
+ sleep 1
+echo ""
+echo -e "${Yellow}# Choose from a different kinds of options, from writable files until whatever the **** you want${EndColor}"
+ sleep 1
+echo -e "# Use This Tool Wisely, And Only For Education Purpose Only"
+ sleep 1
+echo -e "${Magenta}# Made by Adkali with love. Having problems? let me know please!${EndColor}"
+ sleep 2.5
+
+
+
+
+
+# --- > Banner For This Bash Scripting ... // Pop Me Up ... //
+
+echo "
+
+
+    █████╗░  ███╗░░██╗  ██╗░░░██╗  ███╗░░░███╗  ███████╗
+   ██╔══██╗  ████╗░██║  ██║░░░██║  ████╗░████║  ██╔════╝
+   ███████║  ██╔██╗██║  ██║░░░██║  ██╔████╔██║  █████╗░░
+   ██╔══██║  ██║╚████║  ██║░░░██║  ██║╚██╔╝██║  ██╔══╝░░
+   ██║░░██║  ██║░╚███║  ╚██████╔╝  ██║░╚═╝░██║  ███████╗
+   ╚═╝░░╚═╝  ╚═╝░░╚══╝  ░╚═════╝░  ╚═╝░░░░░╚═╝  ╚══════╝
+
+    [+] Simple, But Strong | [+] Made By Adkali With Love
+
+"
+
+# --- > Options The User Has ... //
+
+echo "Choose a number from the list."
+echo "Usage: 'Num1', 'Num2', 'Num3', 'Num4'...."
+echo -e "${Blue}[!]Note: This tool provides you the ability to find anything wrong, but after that, it is up to you to escalate your way up to the root or whatever you want, good luck!${EndColor}"
+sleep 4.0
+
+ListToChoose(){
+echo "Detect Passwords/Usernames/Files/Anything Suspicious Now! - >       : Num1"
+echo "Find Setuid Files Now!       - >                                    : Num2"
+echo "Show PATH variable Now!      - >                                    : Num3"
+echo "Detect Sudo Version Now!     - >                                    : Num4"
+echo "Find Sys Information Now!    - >                                    : Num5"
+echo "Show Running Process  Now!   - >                                    : Num6"
+echo "Look for Private-Keys Now!   - >                                    : Num7"
+echo "Exit                         - >                                    : Exit"
+}
+ListToChoose
+
+# --- > User Input .. // Choose a Number From The List .. //
+echo
+for (( ; ; ))
+do
+echo "Enter Your Number Please:"
+read Number
+
+
+if [[ $Number == "Num1" ]];
+then
+echo -e "${Yellow}Anything Writable in /etc Directory?${EndColor}"
+  sleep 2.5
+  find /etc -writable -type f 2>/dev/null & find /etc -writable -type d 2>/dev/null
+  sleep 2.5
+echo -e "${Yellow}Anything Readable in /etc Directory?${EndColor}"
+  sleep 2.5
+  find /etc -readable -type f 2>/dev/null
+  sleep 2.5
+echo -e "${Yellow}Looking For Writables Files in -> / <- Directory, Please Wait...${EndColor}"
+  sleep 2.5
+  find / -type f -writable 2>/dev/null
+  sleep 2.5
+  echo -e "${Yellow}Please Wait...${EndColor}"
+  find / -perm -4000 2>/dev/null
+  sleep 2.5
+echo -e "${Yellow}Looking For Passwords/Usernames Files...${EndColor}"
+  sleep 2.5
+  grep -rnw '/home' -e 'password' -e 'Password'
+  sleep 2.5
+  grep -rnw '/home' -e 'username' -e 'Username'
+  sleep 2.5
+echo -e "${Yellow}Can We Find Some Sensitive Files Around The System?${EndColor}"
+  sleep 2.5
+  ls -lha /var/mail
+  sleep 2.5
+echo -e "${Yellow}Does The User History Left Any Passwords? Some KeyBoard History?${EndColor}"
+  sleep 2.5
+echo -e "${Yellow}Trying To Read 'bash_history' If It Exist...${EndColor}"
+  cat ~/.bash_history
+  sleep 2.5
+echo -e "${Yellow}Trying To Read 'zsh_hitory' If It Exist...${EndColor}"
+  sleep 2.5
+  cat ~/.zsh_history
+
+elif [[ $Number == "Num2" ]];
+then
+echo -e "${Yellow}Looking For Setuid Files...${EndColor}"
+  sleep 2.5
+  find / -perm -user root -exec ls -ldb {} \; 2>/dev/null
+  sleep 2.5
+echo -e "${Yellow}Please Wait...Trying Another command...${EndColor}"
+  sleep 2.5
+  find / -perm -4000 2>/dev/null
+
+elif [[ $Number == "Num3" ]];
+then
+echo $PATH
+
+elif [[ $Number == "Num4" ]];
+then
+  sudo -V | grep "Sudo ver"
+  sleep 1
+echo -e "${Yellow}Are You  Authorized To Run Something As Root User/NO PASSWD...?${EndColor}"
+  sleep 1
+  sudo -l
+
+elif [[ $Number == "Num5" ]];
+then
+echo -e "${Yellow}Showing  The OS Release...${EndColor}"
+  sleep 2.5
+  lsb_release -a
+  sleep 2.5
+echo -e "${Yellow}What Is The Kernel Version? Does It Have An Exploit Already?${EndColor}"
+  sleep 2.5
+  uname -r & uname -a
+  sleep 2.5
+echo -e "${Yellow}Environment... Might Find Interesting passwords/informations?${EndColor}"
+  sleep 2.5
+  (env || set) 2>/dev/null
+  sleep 2.5
+echo -e "${Yellow}Any Crons Running Right Now? Checking...${EndColor}"
+  sleep 2.5
+  ls -la /etc/cron.*
+  sleep 2.5
+  cat /etc/crontab
+  sleep 2.5
+  cat /var/spool/cron/crontabs/root
+  sleep 2.5
+echo -e "${Yellow}Showing Infomation About The System...Can We Read/Edit 'shadow' File?${EndColor}"
+  sleep 2.5
+  cat /etc/shadow | cut -d: -f1,2 #Show Only usernames and passwords
+  sleep 2.5
+echo -e "${Yellow}Can we edit '/etc/shadow', '/etc/passwd' Files?${EndColor}"
+  sleep 2.5
+  ls -lha /etc/shadow & ls -lha /etc/passwd
+  sleep 2.5
+
+elif [[ $Number == "Num6" ]];
+then
+echo -e "${Yellow}Showing Running Proccess...${EndColor}"
+  sleep 2.5
+  ps -aux
+  sleep 2.5
+echo -e "${Yellow}Anything Running By Root User? Checking...${EndColor}"
+  sleep 2.5
+  ps -ef | grep root
+  sleep 2.5
+
+elif [[ $Number == "Num7" ]];
+then
+echo -e "${Yellow}Looking for Authorized Keys, Please Wait...${EndColor}"
+  sleep 2.5
+  echo -e "${Yellow}Anything at '~/.ssh/authorized_keys' ?${EndColor}"
+  sleep 2.5
+  cat ~/.ssh/authorized_keys
+  echo -e "${Yellow}Any Private 'id_rsa' at ~/.ssh ?${EndColor}"
+  sleep 2.5
+  cat ~/.ssh/id_rsa
+  sleep 2.5
+  echo -e "${Yellow}Is There Anything At All In '/.ssh' ?${EndColor}"
+  sleep 2.5
+  ls -lha ~/.ssh
+elif [[ $Number == "Exit" ]];
+then
+echo -ne '#####                     (33%)\r'
+sleep 1
+echo -ne '#############             (66%)\r'
+sleep 1
+echo -ne '#######################   (Bye-Bye!)\r'
+echo -ne '\n'
+exit
+
+
+else
+
+  echo -e "${Red}Wrong input! Usage: Num1, Num2, Num3, Num4...${EndColor}"
+  ListToChoose
+fi
+done
