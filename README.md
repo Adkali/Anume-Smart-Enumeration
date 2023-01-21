@@ -10,7 +10,7 @@ Anume offers a different options like searching for potential vulnerabilities an
 
 # Usage
 1. git clone the repository.
-2. Use the command 'chmod +x' on the bash script - > chmod +x [filename]
+2. chmod +x [filename.sh]
 3. Choose from the options.
 
 # Updates
