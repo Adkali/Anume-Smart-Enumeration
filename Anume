@@ -46,6 +46,7 @@ options=("Detect Passwords/Usernames/Files/Anything Suspicious"
 	"Find Sys Information"
 	"Look for Private-Keys"
 	"Running Proc's"
+    "Network & route"
 	"Exit")
 
 # Function to display menu
@@ -108,6 +109,7 @@ while true; do
             echo -e "\n${Yellow}Reading 'zsh_history' if it exists...${EndColor}\n"
             cat ~/.zsh_history 2>/dev/null
             ;;
+
         2)
             echo -e "\n${Yellow}Searching for setuid files in the root directory...${EndColor}\n"
             sleep 2
@@ -117,9 +119,11 @@ while true; do
             sleep 2
             find / -perm -4000 2>/dev/null
             ;;
+
         3)
             echo $PATH
             ;;
+
         4)
             echo -e "\n${Yellow}Checking sudo version...${EndColor}\n"
             sleep 2
@@ -129,6 +133,7 @@ while true; do
             sleep 2
             sudo -l
             ;;
+
         5)
             echo -e "\n${Yellow}Displaying system information...${EndColor}\n"
             sleep 2
@@ -156,15 +161,14 @@ while true; do
 			env | grep -io path=*
 			sleep 1
 			env | grep -oE 'path=[^ ]+'
-
-
-
             ;;
+
         6)
             echo -e "\n${Yellow}Searching for private keys...${EndColor}\n"
             sleep 2
             find / -name "id_rsa*" -o -name "id_dsa*" 2>/dev/null
             ;;
+
         7)
 			echo -e "\n${Yellow}Showing Running Proccess...${EndColor}\n"
   			sleep 2.5
@@ -180,6 +184,12 @@ while true; do
   			;;
 
         8)
+            echo -e "\n${Yellow}Displaying network & routing table...${EndColor}\n"
+            sleep 2
+            route -n
+            sleep 2
+            ;;
+        9)
             exit
             ;;
     esac
